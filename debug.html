@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Auth</title>
+</head>
+<body>
+    <h1>Auth Debug Test</h1>
+    <button onclick="testAuth()">Test API Call</button>
+    <pre id="output"></pre>
+    
+    <script src="./js/auth.js"></script>
+    <script>
+        function log(message) {
+            document.getElementById('output').textContent += message + '\n';
+            console.log(message);
+        }
+        
+        async function testAuth() {
+            document.getElementById('output').textContent = '';
+            
+            log('Testing authentication...');
+            
+            // Set test token
+            Auth.setToken('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTc1NTk1MTc4NSwiZXhwIjoxNzU2NTU2NTg1fQ.nFk8wgpUt7xHfZwaf-T7Z3Wc3APfMV0NAz1562sc7sQ');
+            
+            log('Token set: ' + Auth.getToken());
+            log('Is authenticated: ' + Auth.isAuthenticated());
+            
+            try {
+                log('Making API call to /lessons...');
+                const response = await Auth.apiRequest('/lessons');
+                
+                if (response) {
+                    log('Response status: ' + response.status);
+                    const data = await response.json();
+                    log('Response data: ' + JSON.stringify(data));
+                } else {
+                    log('Response is null');
+                }
+            } catch (error) {
+                log('Error: ' + error.message);
+                log('Full error: ' + JSON.stringify(error));
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, minimum-scale=1">
+    <link rel="stylesheet" href="./css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rouge+Script&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.css" />
+    <title>Calendar</title>
+</head>
+<body>
+  <div class="login-background"></div>
+  <style id="color_of_month"></style>
+  <style id="style_from_js"></style>
+  <!-- modal -->
+    <div id="myModal" class="modal fade" tabindex="-1" role="dialog" >
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+          
+         <div class="modal-header">
+           <h5 id="ModalLabel" class="modal-title">Info</h5>
+         </div>
+         <div id="ModalBody" class="modal-body">
+          
+         </div>
+         <div id="ModalFooter" class="modal-footer">
+
+         </div>
+         </div>
+        </div>
+    </div>
+    <div id="myModal-big" class="modal fade" tabindex="-1" role="dialog" >
+      <div class="modal-dialog modal-lg" role="document">
+         <div class="modal-content">
+          
+         <div class="modal-header">
+           <h5 id="ModalLabel-big" class="modal-title">Info</h5>
+         </div>
+         <div id="ModalBody-big" class="modal-body">
+          
+         </div>
+         <div id="ModalFooter-big" class="modal-footer">
+
+         </div>
+         </div>
+        </div>
+    </div>
+
+    <div class="top_sign">
+      <div id="menu_right"></div>
+      <div id="menu_left"></div>
+      <div id="information_about_calendar"></div>
+    </div>
+
+    <div id="calendar">
+
+      <!-- Форма входа -->
+      <div id="auth_login_container" style="display: none;">
+        <div class="bubble left">
+          <label for="login_username">Username or email:</label>
+        </div>
+        
+        <div class="bubble right">
+          <input id="login_username" type="text" placeholder="Enter username or email" required>
+        </div>
+
+        <div class="bubble left">
+          <label for="login_password">Password:</label>
+        </div>
+        
+        <div class="bubble right">
+          <input id="login_password" type="password" placeholder="Enter password" required>
+        </div>
+        
+        <button id="login_button" type="button" class="btn btn-outline-secondary rounded-pill" onclick="loginUser()">Login</button>
+        <button type="button" class="btn btn-outline-secondary rounded-pill" onclick="showRegisterForm()">Register</button>
+      </div>
+
+      <!-- Форма регистрации -->
+      <div id="auth_register_container" style="display: none;">
+        <div class="bubble left">
+          <label for="register_username">Username:</label>
+        </div>
+        
+        <div class="bubble right">
+          <input id="register_username" type="text" placeholder="Enter username" required>
+        </div>
+
+        <div class="bubble left">
+          <label for="register_email">Email:</label>
+        </div>
+        
+        <div class="bubble right">
+          <input id="register_email" type="email" placeholder="Enter email" required>
+        </div>
+
+        <div class="bubble left">
+          <label for="register_birthday">Birthday (optional):</label>
+        </div>
+        
+        <div class="bubble right">
+          <input id="register_birthday" type="date" placeholder="Select birthday">
+        </div>
+
+        <div class="bubble left">
+          <label for="register_password">Password:</label>
+        </div>
+        
+        <div class="bubble right">
+          <input id="register_password" type="password" placeholder="Enter password" required>
+        </div>
+
+        <div class="bubble left">
+          <label for="register_password_confirm">Confirm Password:</label>
+        </div>
+        
+        <div class="bubble right">
+          <input id="register_password_confirm" type="password" placeholder="Repeat password" required>
+        </div>
+        
+        <button id="register_button" type="button" class="btn btn-outline-secondary rounded-pill" onclick="registerUser()">Register</button>
+        <button type="button" class="btn btn-outline-secondary rounded-pill" onclick="showLoginForm()">I have an account</button>
+      </div>
+
+      <!-- Контейнер для авторизованного пользователя -->
+      <div id="auth_user_container" style="display: none;">
+        <div class="bubble left">
+          <label>Welcome!</label>
+        </div>
+        
+        <div class="bubble right">
+          <span id="current_user">Loading...</span>
+          <br><small id="user_birthday" style="color: #666;"></small>
+        </div>
+        
+      </div>
+
+      <!-- Сообщения об ошибках -->
+      <div id="auth_messages" style="text-align: center; margin-top: 10px;">
+        <div id="error_message" style="color: #ff4444; display: none; background: rgba(255,68,68,0.1); padding: 10px; border-radius: 5px; margin: 10px 0;"></div>
+        <div id="success_message" style="color: #44ff44; display: none; background: rgba(68,255,68,0.1); padding: 10px; border-radius: 5px; margin: 10px 0;"></div>
+      </div>
+          
+      
+  </div>
+
+  <div id="bottom_button_to_top">
+      
+  </div>
+
+
+    <script src="https://kit.fontawesome.com/794acf4cc4.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI="
+      crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.1/axios.min.js" integrity="sha512-zJYu9ICC+mWF3+dJ4QC34N9RA0OVS1XtPbnf6oXlvGrLGNB8egsEzu/5wgG90I61hOOKvcywoLzwNmPqGAdATA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/script.js"></script>
+    <script src="./js/script_modifications.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/chart.js-plugin-labels-dv/dist/chartjs-plugin-labels.min.js"></script>
+    <script src="https://uicdn.toast.com/calendar/latest/toastui-calendar.min.js"></script>
+
+    
+
+</body>
+</html>
