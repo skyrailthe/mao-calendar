@@ -1,6 +1,44 @@
 body { 
   padding-right: 0 !important ;
 }
+
+/* Убираем выделение автозаполнения */
+#login_username:-webkit-autofill,
+#login_password:-webkit-autofill,
+#register_username:-webkit-autofill,
+#register_email:-webkit-autofill,
+#register_password:-webkit-autofill,
+#register_password_confirm:-webkit-autofill,
+#login_username:-webkit-autofill:hover,
+#login_password:-webkit-autofill:hover,
+#register_username:-webkit-autofill:hover,
+#register_email:-webkit-autofill:hover,
+#register_password:-webkit-autofill:hover,
+#register_password_confirm:-webkit-autofill:hover,
+#login_username:-webkit-autofill:focus,
+#login_password:-webkit-autofill:focus,
+#register_username:-webkit-autofill:focus,
+#register_email:-webkit-autofill:focus,
+#register_password:-webkit-autofill:focus,
+#register_password_confirm:-webkit-autofill:focus,
+#login_username:-webkit-autofill:active,
+#login_password:-webkit-autofill:active,
+#register_username:-webkit-autofill:active,
+#register_email:-webkit-autofill:active,
+#register_password:-webkit-autofill:active,
+#register_password_confirm:-webkit-autofill:active {
+  -webkit-box-shadow: none !important;
+  -webkit-text-fill-color: white !important;
+  background: none !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+
+input:-internal-autofill-selected {
+  appearance: none !important;
+  background-image: none !important;
+  background-color: transparent !important;
+  color: white !important;
+}
 body::-webkit-scrollbar {
   display: none;  /* Скрыть полосы прокрутки */
 }
