@@ -1,5 +1,5 @@
 // Модуль для работы с авторизацией
-const API_URL = 'http://localhost:3000';
+const API_URL = window.location.origin; // Автоматически использует текущий домен
 
 // Утилиты для работы с токеном
 const Auth = {
