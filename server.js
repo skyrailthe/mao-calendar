@@ -746,6 +746,11 @@ app.get('/status', (req, res) => {
     res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
+// PING ENDPOINT (для поддержания приложения в активном состоянии)
+app.get('/ping', (req, res) => {
+    res.json({ pong: true, timestamp: new Date().toISOString() });
+});
+
 // DB ENDPOINT (для получения полного бэкапа пользователя - аналог json-server)
 app.get('/db', authenticateToken, async (req, res) => {
     try {
