@@ -1699,9 +1699,9 @@ async function delete_scheduledCalendarLesson(data) {
       await minus_1_lesson_from_quantity(id_student, lesson_type, "minus", "", addedLessons);
     }
   } else {
-    // Для обычных занятий - отнимаем 1 при удалении Done
+    // Для обычных занятий - возвращаем 1 при удалении Done
     if (lesson_type == "3") {
-      await minus_1_lesson_from_quantity(id_student, lesson_type, -1);
+      await minus_1_lesson_from_quantity(id_student, lesson_type, 1);
     }
   }
 
