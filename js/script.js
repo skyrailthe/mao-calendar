@@ -672,7 +672,7 @@ async function loadStudentDetails(studentId) {
       //Информация в тело модального окна студента 
       document.getElementById("id_of_the_student_modal").value = current_student_clickedOn.id;
       document.getElementById("name_of_the_student_modal").value = current_student_clickedOn.name || '';
-      document.getElementById("quantity_of_the_student_modal").value = current_student_clickedOn.quantity_paid_lessons || '';
+      document.getElementById("quantity_of_the_student_modal").value = current_student_clickedOn.quantity_paid_lessons !== undefined && current_student_clickedOn.quantity_paid_lessons !== null ? current_student_clickedOn.quantity_paid_lessons : '';
       document.getElementById("cost_of_the_student_modal").value = current_student_clickedOn.current_cost || current_student_clickedOn.curent_cost || '';
 
       if (current_student_clickedOn.birthday == undefined || current_student_clickedOn.birthday == "" || current_student_clickedOn.birthday == null) {
@@ -789,7 +789,7 @@ async function loadStudentDetailsForEdit(studentId) {
       const current_student_clickedOn = await response.json();
       
       document.getElementById("name_of_the_student_modal").value = current_student_clickedOn.name || '';
-      document.getElementById("quantity_of_the_student_modal").value = current_student_clickedOn.quantity_paid_lessons || '';
+      document.getElementById("quantity_of_the_student_modal").value = current_student_clickedOn.quantity_paid_lessons !== undefined && current_student_clickedOn.quantity_paid_lessons !== null ? current_student_clickedOn.quantity_paid_lessons : '';
       document.getElementById("cost_of_the_student_modal").value = current_student_clickedOn.current_cost || current_student_clickedOn.curent_cost || '';
       
       // Обрабатываем дату рождения
